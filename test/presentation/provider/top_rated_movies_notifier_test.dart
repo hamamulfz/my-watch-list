@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
+import 'package:ditonton/domain/usecases/movie/get_movies_top_rated.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -10,15 +10,15 @@ import 'package:mockito/mockito.dart';
 
 import 'top_rated_movies_notifier_test.mocks.dart';
 
-@GenerateMocks([GetTopRatedMovies])
+@GenerateMocks([GetMoviesTopRated])
 void main() {
-  late MockGetTopRatedMovies mockGetTopRatedMovies;
+  late MockGetMoviesTopRated mockGetTopRatedMovies;
   late TopRatedMoviesNotifier notifier;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetTopRatedMovies = MockGetTopRatedMovies();
+    mockGetTopRatedMovies = MockGetMoviesTopRated();
     notifier = TopRatedMoviesNotifier(getTopRatedMovies: mockGetTopRatedMovies)
       ..addListener(() {
         listenerCallCount++;

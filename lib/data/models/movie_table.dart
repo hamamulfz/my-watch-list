@@ -2,6 +2,8 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:equatable/equatable.dart';
 
+import 'movie_model.dart';
+
 class MovieTable extends Equatable {
   final int id;
   final String? title;
@@ -34,6 +36,7 @@ class MovieTable extends Equatable {
         'title': title,
         'posterPath': posterPath,
         'overview': overview,
+        // 'type': 0
       };
 
   Movie toEntity() => Movie.watchlist(
@@ -43,7 +46,13 @@ class MovieTable extends Equatable {
         title: title,
       );
 
+  factory MovieTable.fromDTO(MovieModel movie) => MovieTable(
+        id: movie.id,
+        title: movie.title,
+        posterPath: movie.posterPath,
+        overview: movie.overview,
+      );
+
   @override
-  // TODO: implement props
   List<Object?> get props => [id, title, posterPath, overview];
 }

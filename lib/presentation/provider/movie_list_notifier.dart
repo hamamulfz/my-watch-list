@@ -1,8 +1,8 @@
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_now_playing_movies.dart';
+import 'package:ditonton/domain/usecases/movie/get_movies_now_playing.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/usecases/get_popular_movies.dart';
-import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
+import 'package:ditonton/domain/usecases/movie/get_movies_popular.dart';
+import 'package:ditonton/domain/usecases/movie/get_movies_top_rated.dart';
 import 'package:flutter/material.dart';
 
 class MovieListNotifier extends ChangeNotifier {
@@ -13,16 +13,16 @@ class MovieListNotifier extends ChangeNotifier {
   RequestState get nowPlayingState => _nowPlayingState;
 
   var _popularMovies = <Movie>[];
-  List<Movie> get popularMovies => _popularMovies;
+  List<Movie> get popular => _popularMovies;
 
   RequestState _popularMoviesState = RequestState.Empty;
-  RequestState get popularMoviesState => _popularMoviesState;
+  RequestState get popularState => _popularMoviesState;
 
   var _topRatedMovies = <Movie>[];
-  List<Movie> get topRatedMovies => _topRatedMovies;
+  List<Movie> get topRated => _topRatedMovies;
 
   RequestState _topRatedMoviesState = RequestState.Empty;
-  RequestState get topRatedMoviesState => _topRatedMoviesState;
+  RequestState get topRatedState => _topRatedMoviesState;
 
   String _message = '';
   String get message => _message;
@@ -33,9 +33,9 @@ class MovieListNotifier extends ChangeNotifier {
     required this.getTopRatedMovies,
   });
 
-  final GetNowPlayingMovies getNowPlayingMovies;
-  final GetPopularMovies getPopularMovies;
-  final GetTopRatedMovies getTopRatedMovies;
+  final GetMoviesNowPlaying getNowPlayingMovies;
+  final GetMoviesPopular getPopularMovies;
+  final GetMoviesTopRated getTopRatedMovies;
 
   Future<void> fetchNowPlayingMovies() async {
     _nowPlayingState = RequestState.Loading;

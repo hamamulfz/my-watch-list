@@ -26,6 +26,8 @@ class MovieCard extends StatelessWidget {
           children: [
             Card(
               child: Container(
+                width: double.infinity,
+
                 margin: const EdgeInsets.only(
                   left: 16 + 80 + 16,
                   bottom: 8,

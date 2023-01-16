@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_now_playing_movies.dart';
+import 'package:ditonton/domain/usecases/movie/get_movies_now_playing.dart';
 import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/domain/usecases/get_popular_movies.dart';
-import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
+import 'package:ditonton/domain/usecases/movie/get_movies_popular.dart';
+import 'package:ditonton/domain/usecases/movie/get_movies_top_rated.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,19 +12,19 @@ import 'package:mockito/mockito.dart';
 
 import 'movie_list_notifier_test.mocks.dart';
 
-@GenerateMocks([GetNowPlayingMovies, GetPopularMovies, GetTopRatedMovies])
+@GenerateMocks([GetMoviesNowPlaying, GetMoviesPopular, GetMoviesTopRated])
 void main() {
   late MovieListNotifier provider;
-  late MockGetNowPlayingMovies mockGetNowPlayingMovies;
-  late MockGetPopularMovies mockGetPopularMovies;
-  late MockGetTopRatedMovies mockGetTopRatedMovies;
+  late MockGetMoviesNowPlaying mockGetNowPlayingMovies;
+  late MockGetMoviesPopular mockGetPopularMovies;
+  late MockGetMoviesTopRated mockGetTopRatedMovies;
   late int listenerCallCount;
 
   setUp(() {
     listenerCallCount = 0;
-    mockGetNowPlayingMovies = MockGetNowPlayingMovies();
-    mockGetPopularMovies = MockGetPopularMovies();
-    mockGetTopRatedMovies = MockGetTopRatedMovies();
+    mockGetNowPlayingMovies = MockGetMoviesNowPlaying();
+    mockGetPopularMovies = MockGetMoviesPopular();
+    mockGetTopRatedMovies = MockGetMoviesTopRated();
     provider = MovieListNotifier(
       getNowPlayingMovies: mockGetNowPlayingMovies,
       getPopularMovies: mockGetPopularMovies,
@@ -109,7 +109,7 @@ void main() {
       // act
       provider.fetchPopularMovies();
       // assert
-      expect(provider.popularMoviesState, RequestState.Loading);
+      expect(provider.popularState, RequestState.Loading);
       // verify(provider.setState(RequestState.Loading));
     });
 
@@ -121,8 +121,8 @@ void main() {
       // act
       await provider.fetchPopularMovies();
       // assert
-      expect(provider.popularMoviesState, RequestState.Loaded);
-      expect(provider.popularMovies, tMovieList);
+      expect(provider.popularState, RequestState.Loaded);
+      expect(provider.popular, tMovieList);
       expect(listenerCallCount, 2);
     });
 
@@ -133,7 +133,7 @@ void main() {
       // act
       await provider.fetchPopularMovies();
       // assert
-      expect(provider.popularMoviesState, RequestState.Error);
+      expect(provider.popularState, RequestState.Error);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });
@@ -147,7 +147,7 @@ void main() {
       // act
       provider.fetchTopRatedMovies();
       // assert
-      expect(provider.topRatedMoviesState, RequestState.Loading);
+      expect(provider.topRatedState, RequestState.Loading);
     });
 
     test('should change movies data when data is gotten successfully',
@@ -158,8 +158,8 @@ void main() {
       // act
       await provider.fetchTopRatedMovies();
       // assert
-      expect(provider.topRatedMoviesState, RequestState.Loaded);
-      expect(provider.topRatedMovies, tMovieList);
+      expect(provider.topRatedState, RequestState.Loaded);
+      expect(provider.topRated, tMovieList);
       expect(listenerCallCount, 2);
     });
 
@@ -170,7 +170,7 @@ void main() {
       // act
       await provider.fetchTopRatedMovies();
       // assert
-      expect(provider.topRatedMoviesState, RequestState.Error);
+      expect(provider.topRatedState, RequestState.Error);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });

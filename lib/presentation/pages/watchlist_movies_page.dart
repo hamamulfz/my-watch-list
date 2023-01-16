@@ -48,6 +48,16 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.Loaded) {
+              if (data.watchlistMovies.isEmpty) {
+                return Center(
+                  child: Text(
+                    "No data yet",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                );
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.watchlistMovies[index];

@@ -19,7 +19,7 @@ void main() {
     test('should return success message when insert to database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(testMovieTable))
+      when(mockDatabaseHelper.insertMovieWatchlist(testMovieTable.toJson()))
           .thenAnswer((_) async => 1);
       // act
       final result = await dataSource.insertWatchlist(testMovieTable);
@@ -30,7 +30,7 @@ void main() {
     test('should throw DatabaseException when insert to database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(testMovieTable))
+      when(mockDatabaseHelper.insertMovieWatchlist(testMovieTable.toJson()))
           .thenThrow(Exception());
       // act
       final call = dataSource.insertWatchlist(testMovieTable);
@@ -43,7 +43,7 @@ void main() {
     test('should return success message when remove from database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(testMovieTable))
+      when(mockDatabaseHelper.removeMovieWatchlist(testMovieTable.toJson()))
           .thenAnswer((_) async => 1);
       // act
       final result = await dataSource.removeWatchlist(testMovieTable);
@@ -54,7 +54,7 @@ void main() {
     test('should throw DatabaseException when remove from database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(testMovieTable))
+      when(mockDatabaseHelper.removeMovieWatchlist(testMovieTable.toJson()))
           .thenThrow(Exception());
       // act
       final call = dataSource.removeWatchlist(testMovieTable);
@@ -95,6 +95,40 @@ void main() {
       final result = await dataSource.getWatchlistMovies();
       // assert
       expect(result, [testMovieTable]);
+    });
+  });
+
+  group('cache now playing movies', () {
+    test('should call database helper to save data', () async {
+      // arrange
+      when(mockDatabaseHelper.clearCacheMovie('now playing'))
+          .thenAnswer((_) async => 1);
+      // act
+      await dataSource.cacheNowPlayingMovies([testMovieCache]);
+      // assert
+      verify(mockDatabaseHelper.clearCacheMovie('now playing'));
+      verify(mockDatabaseHelper
+          .insertCacheTransactionMovie([testMovieCache.toJson()], 'now playing'));
+    });
+
+    test('should return list of movies from db when data exist', () async {
+      // arrange
+      when(mockDatabaseHelper.getCacheMovies('now playing'))
+          .thenAnswer((_) async => [testMovieCacheMap]);
+      // act
+      final result = await dataSource.getCachedNowPlayingMovies();
+      // assert
+      expect(result, [testMovieCache]);
+    });
+
+    test('should throw CacheException when cache data is not exist', () async {
+      // arrange
+      when(mockDatabaseHelper.getCacheMovies('now playing'))
+          .thenAnswer((_) async => []);
+      // act
+      final call = dataSource.getCachedNowPlayingMovies();
+      // assert
+      expect(() => call, throwsA(isA<CacheException>()));
     });
   });
 }

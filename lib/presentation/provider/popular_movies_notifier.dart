@@ -1,10 +1,10 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/usecases/get_popular_movies.dart';
+import 'package:ditonton/domain/usecases/movie/get_movies_popular.dart';
 import 'package:flutter/foundation.dart';
 
 class PopularMoviesNotifier extends ChangeNotifier {
-  final GetPopularMovies getPopularMovies;
+  final GetMoviesPopular getPopularMovies;
 
   PopularMoviesNotifier(this.getPopularMovies);
 
@@ -12,7 +12,7 @@ class PopularMoviesNotifier extends ChangeNotifier {
   RequestState get state => _state;
 
   List<Movie> _movies = [];
-  List<Movie> get movies => _movies;
+  List<Movie> get movie => _movies;
 
   String _message = '';
   String get message => _message;
