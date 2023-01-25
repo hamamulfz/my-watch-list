@@ -1,10 +1,9 @@
-
-import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/movie_home_page.dart';
-import 'package:ditonton/presentation/pages/tv_home_page.dart';
-import 'package:ditonton/presentation/pages/tvs_watchlist_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:about/about_page.dart';
 import 'package:flutter/material.dart';
+import 'package:movie/presentation/pages/movie_home_page.dart';
+import 'package:movie/presentation/pages/watchlist_movies_page.dart';
+import 'package:tv_show/presentation/pages/tv_home_page.dart';
+import 'package:tv_show/presentation/pages/tvs_watchlist_page.dart';
 
 class DitontonDrawer extends StatelessWidget {
   const DitontonDrawer({
