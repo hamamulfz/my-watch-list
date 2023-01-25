@@ -1,19 +1,19 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:tv_show/common/constant.dart';
 import 'package:tv_show/presentation/bloc/tv_show_top_rated/tv_show_top_rated_bloc.dart';
 import 'package:tv_show/presentation/widgets/tv_card_list.dart';
 
 class TvTopRatedPage extends StatefulWidget {
-  static const ROUTE_NAME = '/top-rated-tv';
+  static const routeName = '/top-rated-tv';
+
+  const TvTopRatedPage({super.key});
 
   @override
-  _TvTopRatedPageState createState() => _TvTopRatedPageState();
+  TvTopRatedPageState createState() => TvTopRatedPageState();
 }
 
-class _TvTopRatedPageState extends State<TvTopRatedPage> {
+class TvTopRatedPageState extends State<TvTopRatedPage> {
   @override
   void initState() {
     super.initState();
@@ -26,14 +26,14 @@ class _TvTopRatedPageState extends State<TvTopRatedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Top Rated TV'),
+        title: const Text('Top Rated TV'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<TvShowTopRatedBloc, TvShowTopRatedState>(
           builder: (context, state) {
             if (state is TvShowTopRatedLoading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (state is TvShowTopRatedLoaded) {
@@ -45,7 +45,7 @@ class _TvTopRatedPageState extends State<TvTopRatedPage> {
                 itemCount: state.result.length,
               );
             } else {
-              return Center(
+              return const Center(
                 key: Key('error_message'),
                 child: Text(failedToFetchDataMessage),
               );

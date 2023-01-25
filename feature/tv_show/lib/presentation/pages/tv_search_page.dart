@@ -1,20 +1,20 @@
 import 'package:core/core.dart';
-import 'package:core/core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:tv_show/presentation/bloc/tv_show_search/tv_show_search_bloc.dart';
 import 'package:tv_show/presentation/widgets/tv_card_list.dart';
 
 class TvSearchPage extends StatelessWidget {
-  static const ROUTE_NAME = '/search-tv';
+  static const routeName = '/search-tv';
+
+  const TvSearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Tv'),
+        title: const Text('Search Tv'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,14 +27,14 @@ class TvSearchPage extends StatelessWidget {
                       .read<TvShowSearchBloc>()
                       .add(OnQueryTVShowsChange(query));
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search title',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),
               textInputAction: TextInputAction.search,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Search Result',
               style: kHeading6,
@@ -42,7 +42,7 @@ class TvSearchPage extends StatelessWidget {
             BlocBuilder<TvShowSearchBloc, TvShowSearchState>(
               builder: (context, state) {
                 if (state is TvShowSearchLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is TvShowSearchLoaded) {

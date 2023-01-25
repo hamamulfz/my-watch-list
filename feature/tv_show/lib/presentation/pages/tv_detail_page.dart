@@ -1,30 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/genre.dart';
-import 'package:core/domain/entities/tv_show.dart';
 import 'package:core/domain/entities/tv_show_detail.dart';
-import 'package:core/core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:tv_show/common/constant.dart';
 import 'package:tv_show/presentation/bloc/tv_show_detail/tv_show_detail_bloc.dart';
 import 'package:tv_show/presentation/bloc/tv_show_recommendation/tv_show_recommendation_bloc.dart';
 import 'package:tv_show/presentation/bloc/tv_show_watchlist/tv_show_watchlist_bloc.dart';
 
 class TvDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/tv-detail';
+  static const routeName = '/tv-detail';
 
   final int id;
-  TvDetailPage({required this.id});
+  const TvDetailPage({super.key, required this.id});
 
   @override
-  _TvDetailPageState createState() => _TvDetailPageState();
+  TvDetailPageState createState() => TvDetailPageState();
 }
 
-class _TvDetailPageState extends State<TvDetailPage> {
+class TvDetailPageState extends State<TvDetailPage> {
   @override
   void initState() {
     super.initState();
@@ -48,7 +45,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
       body: BlocBuilder<TvShowDetailBloc, TvShowDetailState>(
         builder: (context, state) {
           if (state is TvShowDetailLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (state is TvShowDetailLoaded) {
@@ -62,7 +59,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
             );
           
           } else {
-            return Text(failedToFetchDataMessage);
+            return const Text(failedToFetchDataMessage);
           }
         },
       ),
@@ -70,6 +67,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
   }
 }
 
+// ignore: must_be_immutable
 class DetailContent extends StatefulWidget {
   final TVShowDetail tv;
   // final List<TvShow> recommendations;
@@ -78,7 +76,7 @@ class DetailContent extends StatefulWidget {
   DetailContent(
     this.tv,
     // this.recommendations,
-    this.isAddedWatchlist,
+    this.isAddedWatchlist, {super.key}
   );
 
   @override
@@ -94,17 +92,17 @@ class _DetailContentState extends State<DetailContent> {
         CachedNetworkImage(
           imageUrl: 'https://image.tmdb.org/t/p/w500${widget.tv.posterPath}',
           width: screenWidth,
-          placeholder: (context, url) => Center(
+          placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
           child: DraggableScrollableSheet(
             builder: (context, scrollController) {
               return Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: kRichBlack,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
@@ -177,9 +175,9 @@ class _DetailContentState extends State<DetailContent> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   widget.isAddedWatchlist
-                                      ? Icon(Icons.check)
-                                      : Icon(Icons.add),
-                                  Text('Watchlist'),
+                                      ? const Icon(Icons.check)
+                                      : const Icon(Icons.add),
+                                  const Text('Watchlist'),
                                 ],
                               ),
                             ),
@@ -193,7 +191,7 @@ class _DetailContentState extends State<DetailContent> {
                                 RatingBarIndicator(
                                   rating: widget.tv.voteAverage / 2,
                                   itemCount: 5,
-                                  itemBuilder: (context, index) => Icon(
+                                  itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: kMikadoYellow,
                                   ),
@@ -202,7 +200,7 @@ class _DetailContentState extends State<DetailContent> {
                                 Text('${widget.tv.voteAverage}')
                               ],
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Overview',
                               style: kHeading6,
@@ -210,7 +208,7 @@ class _DetailContentState extends State<DetailContent> {
                             Text(
                               widget.tv.overview,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Recommendations',
                               style: kHeading6,
@@ -219,14 +217,14 @@ class _DetailContentState extends State<DetailContent> {
                                 TvShowRecommendationState>(
                               builder: (context, state) {
                                 if (state is TvShowRecommendationLoading) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (state is TvShowRecommendationError) {
                                   return Text(state.message);
                                 } else if (state
                                     is TvShowRecommendationLoaded) {
-                                  return Container(
+                                  return SizedBox(
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -238,25 +236,25 @@ class _DetailContentState extends State<DetailContent> {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                TvDetailPage.ROUTE_NAME,
+                                                TvDetailPage.routeName,
                                                 arguments: tv.id,
                                               );
                                             },
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
+                                              borderRadius: const BorderRadius.all(
                                                 Radius.circular(8),
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
                                                     'https://image.tmdb.org/t/p/w500${tv.posterPath}',
                                                 placeholder: (context, url) =>
-                                                    Center(
+                                                    const Center(
                                                   child:
                                                       CircularProgressIndicator(),
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                        Icon(Icons.error),
+                                                        const Icon(Icons.error),
                                               ),
                                             ),
                                           ),
@@ -297,7 +295,7 @@ class _DetailContentState extends State<DetailContent> {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -311,7 +309,7 @@ class _DetailContentState extends State<DetailContent> {
   String _showGenres(List<Genre> genres) {
     String result = '';
     for (var genre in genres) {
-      result += genre.name + ', ';
+      result += '${genre.name}, ';
     }
 
     if (result.isEmpty) {

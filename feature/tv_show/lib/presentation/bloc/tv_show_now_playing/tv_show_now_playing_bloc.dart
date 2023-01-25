@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:core/domain/entities/tv_show.dart';
 import 'package:core/domain/usecases/tv/get_tvs_now_playing.dart';
 import 'package:equatable/equatable.dart';
-import 'package:tv_show/presentation/bloc/tv_show_search/tv_show_search_bloc.dart';
 
 part 'tv_show_now_playing_event.dart';
 part 'tv_show_now_playing_state.dart';

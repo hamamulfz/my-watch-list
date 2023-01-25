@@ -11,22 +11,20 @@ import 'package:movie/presentation/pages/movies_popular_page.dart';
 // import 'package:ditonton/presentation/provider/widgets/ditonton_drawer.dart';
 // import 'package:search/presentation/pages/movies_search_page.dart';
 
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:movie/presentation/pages/movies_search_page.dart';
 import 'package:movie/presentation/pages/movies_top_rated_page.dart';
-import 'package:provider/provider.dart';
 
 class MovieHomePage extends StatefulWidget {
   final Widget drawer;
-  static const ROUTE_NAME = '/movie';
+  static const routeName = '/movie';
 
   const MovieHomePage({super.key, required this.drawer});
   @override
-  _MovieHomePageState createState() => _MovieHomePageState();
+  MovieHomePageState createState() => MovieHomePageState();
 }
 
-class _MovieHomePageState extends State<MovieHomePage> {
+class MovieHomePageState extends State<MovieHomePage> {
   @override
   void initState() {
     super.initState();
@@ -42,13 +40,13 @@ class _MovieHomePageState extends State<MovieHomePage> {
     return Scaffold(
       drawer: widget.drawer,
       appBar: AppBar(
-        title: Text('Ditonton Movie'),
+        title: const Text('Ditonton Movie'),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, MovieSearchPage.ROUTE_NAME);
+              Navigator.pushNamed(context, MovieSearchPage.routeName);
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           )
         ],
       ),
@@ -61,53 +59,53 @@ class _MovieHomePageState extends State<MovieHomePage> {
               SubHeadingWidget(
                 title: 'Now Playing',
                 onTap: () => Navigator.pushNamed(
-                    context, NowPlayingMoviesPage.ROUTE_NAME),
+                    context, NowPlayingMoviesPage.routeName),
               ),
               BlocBuilder<MovieNowPlayingBloc, MovieNowPlayingState>(
                   builder: (context, state) {
                 // final state = state.nowPlayingState;
                 if (state is MovieNowPlayingLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is MovieNowPlayingLoaded) {
                   return MovieList(state.result);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
               SubHeadingWidget(
                 title: 'Popular',
                 onTap: () =>
-                    Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, PopularMoviesPage.routeName),
               ),
               BlocBuilder<MoviePopularBloc, MoviePopularState>(
                   builder: (context, state) {
                 if (state is MoviePopularLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is MoviePopularLoaded) {
                   return MovieList(state.result);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
               SubHeadingWidget(
                 title: 'Top Rated',
                 onTap: () =>
-                    Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, TopRatedMoviesPage.routeName),
               ),
               BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
                   builder: (context, state) {
                 if (state is MovieTopRatedLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is MovieTopRatedLoaded) {
                   return MovieList(state.result);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
             ],
@@ -141,7 +139,7 @@ class SubHeadingWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [Text('See More'), Icon(Icons.arrow_forward_ios)],
+              children: const [Text('See More'), Icon(Icons.arrow_forward_ios)],
             ),
           ),
         ),
@@ -153,11 +151,11 @@ class SubHeadingWidget extends StatelessWidget {
 class MovieList extends StatelessWidget {
   final List<Movie> movies;
 
-  MovieList(this.movies);
+  const MovieList(this.movies, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -169,18 +167,18 @@ class MovieList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MovieDetailPage.ROUTE_NAME,
+                  MovieDetailPage.routeName,
                   arguments: movie.id,
                 );
               },
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
-                  placeholder: (context, url) => Center(
+                  imageUrl: '$baseImageUrl${movie.posterPath}',
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),

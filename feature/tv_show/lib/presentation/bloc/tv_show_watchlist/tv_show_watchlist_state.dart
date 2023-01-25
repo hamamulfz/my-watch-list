@@ -22,7 +22,7 @@ class TVShowWatchlistLoading extends TvShowWatchlistState {
 class TVShowWatchlistError extends TvShowWatchlistState {
   final String message;
 
-  TVShowWatchlistError(this.message);
+  const TVShowWatchlistError(this.message);
 
   @override
   List<Object> get props => [message];
@@ -31,7 +31,7 @@ class TVShowWatchlistError extends TvShowWatchlistState {
 class TVShowWatchlistLoaded extends TvShowWatchlistState {
   final List<TvShow> result;
 
-  TVShowWatchlistLoaded(this.result);
+  const TVShowWatchlistLoaded(this.result);
 
   @override
   List<Object> get props => [result];
@@ -40,7 +40,7 @@ class TVShowWatchlistLoaded extends TvShowWatchlistState {
 class TVShowIsAddedToWatchlist extends TvShowWatchlistState {
   final bool isAdded;
 
-  TVShowIsAddedToWatchlist(this.isAdded);
+  const TVShowIsAddedToWatchlist(this.isAdded);
 
   @override
   List<Object> get props => [isAdded];
@@ -49,7 +49,7 @@ class TVShowIsAddedToWatchlist extends TvShowWatchlistState {
 class TVShowWatchlistMessage extends TvShowWatchlistState {
   final String message;
 
-  TVShowWatchlistMessage(this.message);
+  const TVShowWatchlistMessage(this.message);
 
   @override
   List<Object> get props => [message];

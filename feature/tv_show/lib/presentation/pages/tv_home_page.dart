@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/tv_show.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:tv_show/presentation/bloc/tv_show_now_playing/tv_show_now_playing_bloc.dart';
 import 'package:tv_show/presentation/bloc/tv_show_popular/tv_show_popular_bloc.dart';
 import 'package:tv_show/presentation/bloc/tv_show_top_rated/tv_show_top_rated_bloc.dart';
@@ -19,14 +17,14 @@ import 'package:tv_show/presentation/pages/tvs_now_playing_page.dart';
 
 class TvHomePage extends StatefulWidget {
   final Widget drawer;
-  static const ROUTE_NAME = '/tv';
+  static const routeName = '/tv';
 
   const TvHomePage({super.key, required this.drawer});
   @override
-  _TvHomePageState createState() => _TvHomePageState();
+  TvHomePageState createState() => TvHomePageState();
 }
 
-class _TvHomePageState extends State<TvHomePage> {
+class TvHomePageState extends State<TvHomePage> {
   @override
   void initState() {
     super.initState();
@@ -43,13 +41,13 @@ class _TvHomePageState extends State<TvHomePage> {
     return Scaffold(
       drawer: widget.drawer,
       appBar: AppBar(
-        title: Text('Ditonton Tv'),
+        title: const Text('Ditonton Tv'),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, TvSearchPage.ROUTE_NAME);
+              Navigator.pushNamed(context, TvSearchPage.routeName);
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           )
         ],
       ),
@@ -63,52 +61,52 @@ class _TvHomePageState extends State<TvHomePage> {
               SubheadingWidget(
                 title: 'Now Playing',
                 onTap: () =>
-                    Navigator.pushNamed(context, TvsNowPlayingPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, TvsNowPlayingPage.routeName),
               ),
               BlocBuilder<TvShowNowPlayingBloc, TvShowNowPlayingState>(builder: (context, state) {
                 
                 if (state is TvShowNowPlayingLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is TvShowNowPlayingLoaded) {
                   return MovieList(state.result);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
               SubheadingWidget(
                 title: 'Popular',
                 onTap: () =>
-                    Navigator.pushNamed(context, TvPopularPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, TvPopularPage.routeName),
               ),
               BlocBuilder<TvShowPopularBloc, TvShowPopularState>(builder: (context, state) {
                 
                 if (state is TvShowPopularLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is TvShowPopularLoaded) {
                   return MovieList(state.result);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
               SubheadingWidget(
                 title: 'Top Rated',
                 onTap: () =>
-                    Navigator.pushNamed(context, TvTopRatedPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, TvTopRatedPage.routeName),
               ),
               BlocBuilder<TvShowTopRatedBloc, TvShowTopRatedState>(builder: (context, state) {
                 
                 if (state is TvShowTopRatedLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is TvShowTopRatedLoaded) {
                   return MovieList(state.result);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
             ],
@@ -121,10 +119,10 @@ class _TvHomePageState extends State<TvHomePage> {
 }
 
 class SubheadingWidget extends StatelessWidget {
-  final title;
-  final onTap;
+  final String title;
+  final Function() onTap;
   const SubheadingWidget({
-    Key? key, this.title, this.onTap,
+    Key? key,required  this.title, required this.onTap,
   }) : super(key: key);
 
   @override
@@ -141,7 +139,7 @@ class SubheadingWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [Text('See More'), Icon(Icons.arrow_forward_ios)],
+              children: const [Text('See More'), Icon(Icons.arrow_forward_ios)],
             ),
           ),
         ),
@@ -153,11 +151,11 @@ class SubheadingWidget extends StatelessWidget {
 class MovieList extends StatelessWidget {
   final List<TvShow> movies;
 
-  MovieList(this.movies);
+  const MovieList(this.movies, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -169,18 +167,18 @@ class MovieList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  TvDetailPage.ROUTE_NAME,
+                  TvDetailPage.routeName,
                   arguments: movie.id,
                 );
               },
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
-                  placeholder: (context, url) => Center(
+                  imageUrl: '$baseImageUrl${movie.posterPath}',
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),

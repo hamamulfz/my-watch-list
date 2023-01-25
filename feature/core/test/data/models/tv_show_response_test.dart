@@ -8,7 +8,7 @@ import '../../json_reader.dart';
 
 
 void main() {
-  final tTvModel = TVShowModel(
+  const tTvModel = TVShowModel(
       originCountry: ["US"],
       // adult: false,
       backdropPath: "/oC9SgtJTDCEpWnTBtVGoAvjl5hb.jpg",
@@ -25,7 +25,7 @@ void main() {
       // video: false,
       voteAverage: 5.8,
       voteCount: 29);
-  final tTvResponseModel = TVShowResponse(tvShowList: <TVShowModel>[tTvModel]);
+  const tTvResponseModel = TVShowResponse(tvShowList: <TVShowModel>[tTvModel]);
   group('fromJson', () {
     test('should return a valid model from JSON', () async {
       // arrange

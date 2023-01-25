@@ -22,7 +22,7 @@ import 'package:movie/presentation/pages/movies_popular_page.dart';
 import 'package:movie/presentation/pages/movies_search_page.dart';
 import 'package:movie/presentation/pages/movies_top_rated_page.dart';
 import 'package:movie/presentation/pages/watchlist_movies_page.dart';
-import 'package:provider/provider.dart';
+import 'package:ssl_pinning/network_ssl_pinning.dart';
 import 'package:tv_show/presentation/bloc/tv_show_detail/tv_show_detail_bloc.dart';
 import 'package:tv_show/presentation/bloc/tv_show_now_playing/tv_show_now_playing_bloc.dart';
 import 'package:tv_show/presentation/bloc/tv_show_popular/tv_show_popular_bloc.dart';
@@ -43,7 +43,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // await NetworkSslPinning.init();
+  await NetworkSslPinning.init();
   di.init();
   runApp(MyApp());
 }
@@ -110,49 +110,49 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
-            case MovieHomePage.ROUTE_NAME:
+            case MovieHomePage.routeName:
               return MaterialPageRoute(
                   builder: (_) => MovieHomePage(
                         drawer: DitontonDrawer(),
                       ));
-            case TvHomePage.ROUTE_NAME:
+            case TvHomePage.routeName:
               return MaterialPageRoute(
                   builder: (_) => TvHomePage(
                         drawer: DitontonDrawer(),
                       ));
-            case PopularMoviesPage.ROUTE_NAME:
+            case PopularMoviesPage.routeName:
               return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
-            case NowPlayingMoviesPage.ROUTE_NAME:
+            case NowPlayingMoviesPage.routeName:
               return CupertinoPageRoute(builder: (_) => NowPlayingMoviesPage());
-            case TvsNowPlayingPage.ROUTE_NAME:
+            case TvsNowPlayingPage.routeName:
               return CupertinoPageRoute(builder: (_) => TvsNowPlayingPage());
-            case TvPopularPage.ROUTE_NAME:
+            case TvPopularPage.routeName:
               return CupertinoPageRoute(builder: (_) => TvPopularPage());
-            case TopRatedMoviesPage.ROUTE_NAME:
+            case TopRatedMoviesPage.routeName:
               return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
-            case TvTopRatedPage.ROUTE_NAME:
+            case TvTopRatedPage.routeName:
               return CupertinoPageRoute(builder: (_) => TvTopRatedPage());
-            case MovieDetailPage.ROUTE_NAME:
+            case MovieDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: id),
                 settings: settings,
               );
-            case TvDetailPage.ROUTE_NAME:
+            case TvDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => TvDetailPage(id: id),
                 settings: settings,
               );
-            case MovieSearchPage.ROUTE_NAME:
+            case MovieSearchPage.routeName:
               return CupertinoPageRoute(builder: (_) => MovieSearchPage());
-            case TvSearchPage.ROUTE_NAME:
+            case TvSearchPage.routeName:
               return CupertinoPageRoute(builder: (_) => TvSearchPage());
-            case WatchlistMoviesPage.ROUTE_NAME:
+            case WatchlistMoviesPage.routeName:
               return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
-            case TvsWatchlistPage.ROUTE_NAME:
+            case TvsWatchlistPage.routeName:
               return MaterialPageRoute(builder: (_) => TvsWatchlistPage());
-            case AboutPage.ROUTE_NAME:
+            case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:
               return MaterialPageRoute(builder: (_) {

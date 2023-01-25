@@ -3,7 +3,7 @@ import 'package:core/domain/entities/tv_show.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final tTvModel = TVShowModel(
+  const tTvModel = TVShowModel(
     originCountry: [""],
     originalLanguage: "",
     // adult: false,
@@ -21,7 +21,7 @@ void main() {
     voteCount: 1,
   );
 
-  final tTv = TvShow(
+  const tTv = TvShow(
     originCountry: [""],
     originalLanguage: "",
     // adult: false,

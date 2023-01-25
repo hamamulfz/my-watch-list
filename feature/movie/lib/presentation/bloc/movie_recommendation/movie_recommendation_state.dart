@@ -17,7 +17,7 @@ class MovieRecommendationLoading extends MovieRecommendationState {
 class MovieRecommendationError extends MovieRecommendationState {
   final String message;
 
-  MovieRecommendationError(this.message);
+  const MovieRecommendationError(this.message);
 
   @override
   List<Object> get props => [message];
@@ -26,7 +26,7 @@ class MovieRecommendationError extends MovieRecommendationState {
 class MovieRecommendationLoaded extends MovieRecommendationState {
   final List<Movie> result;
 
-  MovieRecommendationLoaded(this.result);
+  const MovieRecommendationLoaded(this.result);
 
   @override
   List<Object> get props => [result];

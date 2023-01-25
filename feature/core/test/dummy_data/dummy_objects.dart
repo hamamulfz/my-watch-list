@@ -10,7 +10,7 @@ import 'package:core/domain/entities/tv_show_detail.dart';
 final testMovie = Movie(
   adult: false,
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
-  genreIds: [14, 28],
+  genreIds: const [14, 28],
   id: 557,
   originalTitle: 'Spider-Man',
   overview:
@@ -23,7 +23,7 @@ final testMovie = Movie(
   voteAverage: 7.2,
   voteCount: 13507,
 );
-final testTv = TvShow(
+const testTv = TvShow(
   originCountry: [""],
   originalLanguage: "",
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
@@ -43,7 +43,7 @@ final testTv = TvShow(
 final testMovieList = [testMovie];
 final testTvList = [testTv];
 
-final testMovieDetail = MovieDetail(
+const testMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
   genres: [Genre(id: 1, name: 'Action')],
@@ -58,7 +58,7 @@ final testMovieDetail = MovieDetail(
   voteCount: 1,
 );
 
-final testTvDetail = TVShowDetail(
+const testTvDetail = TVShowDetail(
   seasons: [
     Season(
       id: 1,
@@ -89,21 +89,21 @@ final testWatchlistMovie = Movie.watchlist(
   overview: 'overview',
 );
 
-final testWatchlistTv = TvShow.watchlist(
+const testWatchlistTv = TvShow.watchlist(
   id: 1,
   name: 'title',
   posterPath: 'posterPath',
   overview: 'overview',
 );
 
-final testMovieTable = MovieTable(
+const testMovieTable = MovieTable(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',
   overview: 'overview',
 );
 
-final testTvTable = TVShowTable(
+const testTvTable = TVShowTable(
   id: 1,
   name: 'title',
   posterPath: 'posterPath',
@@ -118,7 +118,7 @@ final testMovieFromCache = Movie.watchlist(
   title: 'Spider-Man',
 );
 
-final testTvFromCache = TvShow.watchlist(
+const testTvFromCache = TvShow.watchlist(
   id: 557,
   overview:
       'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
@@ -126,7 +126,7 @@ final testTvFromCache = TvShow.watchlist(
   name: 'Spider-Man',
 );
 
-final testMovieCache = MovieTable(
+const testMovieCache = MovieTable(
   id: 557,
   overview:
       'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
@@ -134,7 +134,7 @@ final testMovieCache = MovieTable(
   title: 'Spider-Man',
 );
 
-final testTvCache = TVShowTable(
+const testTvCache = TVShowTable(
   id: 557,
   overview:
       'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',

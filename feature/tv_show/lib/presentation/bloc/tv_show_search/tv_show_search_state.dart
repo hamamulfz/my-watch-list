@@ -22,7 +22,7 @@ class TvShowSearchLoading extends TvShowSearchState {
 class TvShowSearchError extends TvShowSearchState {
   final String message;
 
-  TvShowSearchError(this.message);
+  const TvShowSearchError(this.message);
 
   @override
   List<Object> get props => [message];
@@ -31,7 +31,7 @@ class TvShowSearchError extends TvShowSearchState {
 class TvShowSearchLoaded extends TvShowSearchState {
   final List<TvShow> result;
 
-  TvShowSearchLoaded(this.result);
+  const TvShowSearchLoaded(this.result);
 
   @override
   List<Object> get props => [result];

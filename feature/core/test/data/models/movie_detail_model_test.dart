@@ -3,7 +3,7 @@ import 'package:core/data/models/movie_detail_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
-  final testMovieResponse = MovieDetailResponse(
+  const testMovieResponse = MovieDetailResponse(
     popularity: 1,
     posterPath: 'posterPath',
     title: 'title',

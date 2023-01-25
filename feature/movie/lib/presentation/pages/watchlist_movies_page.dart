@@ -1,20 +1,20 @@
 import 'package:core/common/utils/utils.dart';
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/common/constant.dart';
 import 'package:movie/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
 import 'package:movie/presentation/widgets/movie_card_list.dart';
-import 'package:provider/provider.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist-movie';
+  static const routeName = '/watchlist-movie';
+
+  const WatchlistMoviesPage({super.key});
 
   @override
-  _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
+  WatchlistMoviesPageState createState() => WatchlistMoviesPageState();
 }
 
-class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
+class WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     with RouteAware {
   @override
   void initState() {
@@ -29,6 +29,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     context.read<MovieWatchlistBloc>().add(FetchMovieWatchlist());
   }
@@ -37,19 +38,19 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Watchlist'),
+        title: const Text('Watchlist'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<MovieWatchlistBloc, MovieWatchlistState>(
           builder: (context, state) {
             if (state is MovieWatchlistLoading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (state is MovieWatchlistLoaded) {
               if (state.result.isEmpty) {
-                return Center(
+                return const Center(
                   child: Text(
                     "No data yet",
                     style: TextStyle(
@@ -66,9 +67,9 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 itemCount: state.result.length,
               );
             } else if (state is MovieWatchlistInitial) {
-              return Center(child: Text("No Watchlist Data"));
+              return const Center(child: Text("No Watchlist Data"));
             } else {
-              return Center(
+              return const Center(
                 key: Key('error_message'),
                 child: Text(failedToFetchDataMessage),
               );

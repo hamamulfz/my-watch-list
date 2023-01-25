@@ -3,7 +3,7 @@ import 'package:core/data/models/tv_show_detail_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
-  final testTVShowResponse = TVShowDetailResponse(
+  const testTVShowResponse = TVShowDetailResponse(
     popularity: 1,
     posterPath: 'posterPath',
     name: 'name',

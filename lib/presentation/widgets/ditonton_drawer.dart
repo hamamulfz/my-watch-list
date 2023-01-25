@@ -27,7 +27,7 @@ class DitontonDrawer extends StatelessWidget {
             title: Text('Movies'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, MovieHomePage.ROUTE_NAME);
+              Navigator.pushReplacementNamed(context, MovieHomePage.routeName);
             },
           ),
           ListTile(
@@ -35,26 +35,26 @@ class DitontonDrawer extends StatelessWidget {
             title: Text('TV Shows'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, TvHomePage.ROUTE_NAME);
+              Navigator.pushReplacementNamed(context, TvHomePage.routeName);
             },
           ),
           ListTile(
             leading: Icon(Icons.save_alt),
             title: Text('Watchlist Movie'),
             onTap: () {
-              Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+              Navigator.pushNamed(context, WatchlistMoviesPage.routeName);
             },
           ),
           ListTile(
             leading: Icon(Icons.save_alt),
             title: Text('Watchlist Tv'),
             onTap: () {
-              Navigator.pushNamed(context, TvsWatchlistPage.ROUTE_NAME);
+              Navigator.pushNamed(context, TvsWatchlistPage.routeName);
             },
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
+              Navigator.pushNamed(context, AboutPage.routeName);
             },
             leading: Icon(Icons.info_outline),
             title: Text('About'),

@@ -8,18 +8,14 @@ class DatabaseHelper {
     _databaseHelper = this;
   }
 
-  DatabaseHelper.initDb(db) {
-    this.db = db;
-  }
+  DatabaseHelper.initDb(this.db);
 
   factory DatabaseHelper() => _databaseHelper ?? DatabaseHelper._instance();
 
   Database? db;
 
   Future<Database?> get database async {
-    if (db == null) {
-      db = await initDb();
-    }
+    db ??= await initDb();
     return db;
   }
 
