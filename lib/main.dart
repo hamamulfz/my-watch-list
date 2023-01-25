@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:about/about_page.dart';
 import 'package:core/common/utils/utils.dart';
 import 'package:core/core.dart';
@@ -5,6 +7,7 @@ import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/injection.dart' as di;
 import 'package:ditonton/presentation/widgets/ditonton_drawer.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,6 +46,15 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  Isolate.current.addErrorListener(RawReceivePort((pair) async {
+    final List<dynamic> errorAndStacktrace = pair;
+    await FirebaseCrashlytics.instance.recordError(
+      errorAndStacktrace.first,
+      errorAndStacktrace.last,
+    );
+  }).sendPort);
   await NetworkSslPinning.init();
   di.init();
   runApp(MyApp());
@@ -104,7 +116,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: kRichBlack,
           textTheme: kTextTheme,
         ),
-        home: MovieHomePage(
+        home: 
+        MovieHomePage(
           drawer: DitontonDrawer(),
         ),
         navigatorObservers: [routeObserver],
