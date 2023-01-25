@@ -1,10 +1,9 @@
-
-import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/movie_home_page.dart';
-import 'package:ditonton/presentation/pages/tv_home_page.dart';
-import 'package:ditonton/presentation/pages/tvs_watchlist_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:about/about_page.dart';
 import 'package:flutter/material.dart';
+import 'package:movie/presentation/pages/movie_home_page.dart';
+import 'package:movie/presentation/pages/watchlist_movies_page.dart';
+import 'package:tv_show/presentation/pages/tv_home_page.dart';
+import 'package:tv_show/presentation/pages/tvs_watchlist_page.dart';
 
 class DitontonDrawer extends StatelessWidget {
   const DitontonDrawer({
@@ -28,7 +27,7 @@ class DitontonDrawer extends StatelessWidget {
             title: Text('Movies'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, MovieHomePage.ROUTE_NAME);
+              Navigator.pushReplacementNamed(context, MovieHomePage.routeName);
             },
           ),
           ListTile(
@@ -36,26 +35,26 @@ class DitontonDrawer extends StatelessWidget {
             title: Text('TV Shows'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, TvHomePage.ROUTE_NAME);
+              Navigator.pushReplacementNamed(context, TvHomePage.routeName);
             },
           ),
           ListTile(
             leading: Icon(Icons.save_alt),
             title: Text('Watchlist Movie'),
             onTap: () {
-              Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+              Navigator.pushNamed(context, WatchlistMoviesPage.routeName);
             },
           ),
           ListTile(
             leading: Icon(Icons.save_alt),
             title: Text('Watchlist Tv'),
             onTap: () {
-              Navigator.pushNamed(context, TvsWatchlistPage.ROUTE_NAME);
+              Navigator.pushNamed(context, TvsWatchlistPage.routeName);
             },
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
+              Navigator.pushNamed(context, AboutPage.routeName);
             },
             leading: Icon(Icons.info_outline),
             title: Text('About'),
