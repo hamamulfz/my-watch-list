@@ -22,7 +22,8 @@ void main() {
     expect(drawerIcon, findsOneWidget);
 
     await tester.tap(drawerIcon);
-    // expect(find.byType(Drawer), findsOneWidget);
-    // expect(find.byType(ListTile), findsNWidgets(5));
+    await tester.pumpAndSettle();
+    expect(find.byType(Drawer), findsOneWidget);
+    expect(find.byType(ListTile), findsNWidgets(5));
   });
 }
