@@ -32,8 +32,11 @@ class TvRepositoryImpl implements TvShowRepository {
         return Right(result.map((model) => model.toEntity()).toList());
       } on ServerException {
         return const Left(ServerFailure(''));
+      } on TlsException {
+        return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
       } on SocketException {
-        return const Left(ConnectionFailure('Failed to connect to the network'));
+        return const Left(
+            ConnectionFailure('Failed to connect to the network'));
       }
     } else {
       try {
@@ -50,6 +53,8 @@ class TvRepositoryImpl implements TvShowRepository {
     try {
       final result = await remoteDataSource.getDetailTvs(id);
       return Right(result.toEntity());
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on ServerException {
       return const Left(ServerFailure(''));
     } on SocketException {
@@ -74,6 +79,8 @@ class TvRepositoryImpl implements TvShowRepository {
     try {
       final result = await remoteDataSource.getPopularTvs();
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on ServerException {
       return const Left(ServerFailure(''));
     } on SocketException {
@@ -86,6 +93,8 @@ class TvRepositoryImpl implements TvShowRepository {
     try {
       final result = await remoteDataSource.getTopRatedTvs();
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on ServerException {
       return const Left(ServerFailure(''));
     } on SocketException {
@@ -100,13 +109,16 @@ class TvRepositoryImpl implements TvShowRepository {
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     }
   }
 
   @override
-  Future<Either<Failure, String>> saveWatchlistTvShow(TVShowDetail tvShow) async {
+  Future<Either<Failure, String>> saveWatchlistTvShow(
+      TVShowDetail tvShow) async {
     try {
       final result =
           await localDataSource.insertWatchlist(TVShowTable.fromEntity(tvShow));
@@ -119,7 +131,8 @@ class TvRepositoryImpl implements TvShowRepository {
   }
 
   @override
-  Future<Either<Failure, String>> removeWatchlistTvShow(TVShowDetail tvShow) async {
+  Future<Either<Failure, String>> removeWatchlistTvShow(
+      TVShowDetail tvShow) async {
     try {
       final result =
           await localDataSource.removeWatchlist(TVShowTable.fromEntity(tvShow));

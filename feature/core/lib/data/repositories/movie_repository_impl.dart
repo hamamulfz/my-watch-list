@@ -32,8 +32,11 @@ class MovieRepositoryImpl implements MovieRepository {
         return Right(result.map((model) => model.toEntity()).toList());
       } on ServerException {
         return const Left(ServerFailure(''));
+      } on TlsException {
+        return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
       } on SocketException {
-        return const Left(ConnectionFailure('Failed to connect to the network'));
+        return const Left(
+            ConnectionFailure('Failed to connect to the network'));
       }
     } else {
       try {
@@ -52,6 +55,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result.toEntity());
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     }
@@ -64,6 +69,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     }
@@ -76,6 +83,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     }
@@ -88,6 +97,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     }
@@ -100,6 +111,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
+    } on TlsException {
+      return const Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
     }
@@ -119,7 +132,8 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, String>> removeWatchlistMovie(MovieDetail movie) async {
+  Future<Either<Failure, String>> removeWatchlistMovie(
+      MovieDetail movie) async {
     try {
       final result =
           await localDataSource.removeWatchlist(MovieTable.fromEntity(movie));
